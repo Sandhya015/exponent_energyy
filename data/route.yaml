@@ -1,0 +1,64 @@
+# Canonical route definition — shared by all scenarios.
+# Edit distances or add stations here; scenarios reference this route by id.
+
+id: bengaluru_kochi
+name: "Bengaluru → Kochi"
+
+# Travel speed: 60 km/h → 1 km takes 1 minute (matches spec example).
+speed_kmh: 60
+
+battery:
+  range_km: 240
+  charge_duration_min: 25
+
+# Endpoints have slow chargers (departure always full); not scheduled.
+endpoints:
+  - id: bengaluru
+    name: Bengaluru
+    km_from_bengaluru: 0
+  - id: kochi
+    name: Kochi
+    km_from_bengaluru: 540
+
+# Ordered segments between consecutive stops on the forward (BK) path.
+segments:
+  - from: bengaluru
+    to: A
+    distance_km: 100
+  - from: A
+    to: B
+    distance_km: 120
+  - from: B
+    to: C
+    distance_km: 100
+  - from: C
+    to: D
+    distance_km: 120
+  - from: D
+    to: kochi
+    distance_km: 100
+
+# Scheduling stations (1 charger each unless overridden in scenario).
+stations:
+  - id: A
+    name: "Station A"
+    km_from_bengaluru: 100
+    chargers: 1
+  - id: B
+    name: "Station B"
+    km_from_bengaluru: 220
+    chargers: 1
+  - id: C
+    name: "Station C"
+    km_from_bengaluru: 320
+    chargers: 1
+  - id: D
+    name: "Station D"
+    km_from_bengaluru: 440
+    chargers: 1
+
+# Default soft-rule weights (overridable per scenario).
+weights:
+  individual: 1.0
+  operator: 1.0
+  overall: 1.0
